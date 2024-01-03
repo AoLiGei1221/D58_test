@@ -119,7 +119,7 @@ For more information, feel free to use the `-help` option to easily see availabl
 If the x forwarding is enabled, the picture will be immediately pops up containing the result of the execution
 
 For IP mode, the result is store in result.png
-![results](https://hackmd.io/_uploads/HkzgfxEUa.png)
+![results](/images/1.png)
 
 For TCP mode
     For SWCC mode, 
@@ -128,17 +128,17 @@ For TCP mode
     For the rest of modes,
     the congestion window plot is in resultRttforTcp.png, ther is no conjestion window plot
 
-![RTT](https://hackmd.io/_uploads/ry-Sbl4I6.png)
-![CWND](https://hackmd.io/_uploads/BJbrZgVI6.png)
+![RTT](/images/2.png)
+![CWND](/images/3.png)
 
 ### Sample Stop&Wait:
-![Stop&Wait](https://hackmd.io/_uploads/S1XkVxNIp.png)
+![Stop&Wait](/images/4.png)
 
 ### Sample Fixed Size:
-![Fixed Size](https://hackmd.io/_uploads/rkQJ4eVUa.png)
+![Fixed Size](/images/5.png)
 
 ### Sample Congetsion Controlled:
-![SSCC](https://hackmd.io/_uploads/Sy7k4gNLa.png)
+![SSCC](/images/6.png)
 
 
 ## Implementation details & Documentation

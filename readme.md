@@ -9,20 +9,6 @@ Throughout the course of this project, we employed the Internet Control Message 
 
 
 
-
-
-## Contribution of each member of the team
-
-### A Runyu Yue [Student No: 1007391298]
-Define the protocols headers and the check sum. Responsible for the sending logic for the arp and tcp backend(implementation of socket communication without using the "high level socket" but raw socket). Responsible for sending arp request and wrap outside headers to tcp packet and send. Also responsible for writing user interface in python and the plotting of the results.
-
-### B Kaiwei Zhang [Student No: 1007073873]
-Responsible for receiving raw data packets, handling ARP reply for address mapping, sending and track ICMP packets to check reply and error reporting, developing a helper function for printing packet headers.
-
-### C Chris (Shaopeng) Lin [Student No: 1006027452]
-Responsible for TCP implementation. Develop the TCP front end and used Runyu and Kawei's IP stack to implement **Stop&Wait**, **Fixed Size Sliding Window**, and **Congestion Control Sliding Window**.
-
-
 ## How to run our code
 ### 1. set up the environment
 Mininet VM from class is required.

@@ -25,6 +25,35 @@ tcp_gen_packet (tcp_hdr_t *header, uint8_t *data, uint16_t len,
                 uint16_t dst_port, uint32_t seq_num, uint32_t ack_num,
                 uint8_t flags, uint16_t window)
 {
+
+  printf("======================== inside tcp gen packet ==========================\n");
+  printf("TCP Header: src_ip=%u, dst_ip=%u, src_port=%u, dst_port=%u, "
+           "seq_num=%u, ack_num=%u, flags=0x%02X, window=%u, len=%u, data=", src_ip, dst_ip, src_port, dst_port, seq_num, ack_num, flags, window, len);
+
+    for (uint16_t i = 0; i < len; i++) {
+        printf("%02X", data[i]); // Print data in hex without spaces
+        if (i < len - 1) printf(" "); // Add space between bytes
+    }
+
+    if (header) {
+        printf(", header=valid\n");
+    } else {
+        printf(", header=NULL\n");
+    }
+
+    printf("Data: ");
+    for (uint16_t i = 0; i < len; i++) {
+        printf("%02X ", data[i]); // Print data in hex
+    }
+    printf("\n");
+
+    // Assuming header is not NULL and has fields you can access
+    if (header) {
+        // Example: printf("Header Field: %u\n", header->field);
+        printf("Header is valid.\n");
+    } else {
+        printf("Header is NULL.\n");
+    }
   memset (header, 0, sizeof (tcp_hdr_t));
   header->src_port = htons (src_port);
   header->des_port = htons (dst_port);
@@ -55,6 +84,7 @@ tcp_gen_packet (tcp_hdr_t *header, uint8_t *data, uint16_t len,
   header->cksum = 0;
   header->cksum = tcp_cksum (cksum_buf, sizeof (tcp_hdr_t)
                                             + sizeof (tcp_pseudo_hdr_t) + len);
+  printf("==================================== end of create tcp packet =======================================");
   free (cksum_buf);
 }
 

@@ -65,6 +65,9 @@ handle_tcp (tcp_hdr_t *hdr)
 uint32_t
 tcp_handshake ()
 {
+
+  printf("===================================== Inside tcp_handshake =============================================== \n");
+  fflush(stdout);
   // TCP header
   tcp_hdr_t *tcph = (tcp_hdr_t *)calloc (1, sizeof (tcp_hdr_t));
 

@@ -165,6 +165,23 @@ int
 warpHeaderAndSendTcp (uint8_t *tcpbuff, int tcpTotalLen, uint32_t *dest_ip,
                       uint8_t *dest_mac)
 {
+
+  // print
+  printf("TCP Buffer: ");
+  for (int i = 0; i < tcpTotalLen; i++) {
+      printf("%02X", tcpbuff[i]); // Print each byte of tcpbuff in hex
+      if (i < tcpTotalLen - 1) printf(" "); // Add space between bytes
+  }
+  printf(", Total Length: %d, Destination IP: %u.%u.%u.%u, Destination MAC: ",
+          tcpTotalLen,
+          (*dest_ip >> 24) & 0xFF, (*dest_ip >> 16) & 0xFF,
+          (*dest_ip >> 8) & 0xFF, *dest_ip & 0xFF); // Convert dest_ip to dotted format
+  for (int i = 0; i < 6; i++) {
+      printf("%02X", dest_mac[i]); // Print each byte of dest_mac in hex
+      if (i < 5) printf(":"); // Add colon between MAC address bytes
+  }
+  printf("\n");
+
   uint8_t mac[6];
   uint32_t ip;
   //find current interface
@@ -172,6 +189,17 @@ warpHeaderAndSendTcp (uint8_t *tcpbuff, int tcpTotalLen, uint32_t *dest_ip,
   //get the interface mac address and ip
   get_mac_ip (iface, mac, &ip);
 
+  // print
+  printf("MAC Address: ");
+  for (int i = 0; i < 6; i++) {
+      printf("%02X", mac[i]); // Print each byte in hex
+      if (i < 5) printf(":"); // Add colon between bytes
+  }
+  // Print IP address in dotted-decimal format
+  printf(", IP Address: %u.%u.%u.%u\n",
+          (ip >> 24) & 0xFF, (ip >> 16) & 0xFF, (ip >> 8) & 0xFF, ip & 0xFF);
+
+          
   //create ethernet header
   struct eth_header *eth = malloc (sizeof (struct eth_header));
   create_eth_header (eth, mac, dest_mac, ether_ip);
@@ -190,6 +218,19 @@ warpHeaderAndSendTcp (uint8_t *tcpbuff, int tcpTotalLen, uint32_t *dest_ip,
           tcpbuff, tcpTotalLen);
   memcpy (socket_address.sll_addr, eth->destination, ETH_ALEN);
 
+  // print
+  printf("Socket FD: %d, Buffer: ", sockfd);
+  for (size_t i = 0; i < tcpTotalLen; i++) {
+      printf("%02X", buffer[i]); // Print buffer in hex
+      if (i < tcpTotalLen - 1) printf(" ");
+  }
+
+  // printf(", Total Length: %zu, Socket Address: %s:%d, Address Length: %zu\n",
+  //         totalLen,
+  //         inet_ntoa(addr_in->sin_addr), // Convert IP to string
+  //         ntohs(addr_in->sin_port),    // Convert port to host byte order
+  //         addr_len);
+
   //send using global socket
   ssize_t bytes_sent = sendto (sockfd, buffer, sizeof (struct eth_header) + sizeof (struct ip_header) + tcpTotalLen, 0,
       (struct sockaddr *)&socket_address, sizeof (socket_address));
@@ -200,6 +241,7 @@ warpHeaderAndSendTcp (uint8_t *tcpbuff, int tcpTotalLen, uint32_t *dest_ip,
   free (eth);
   free (iph);
   free (iface);
+  printf("================================== finish wrap and send tcp packet ================================\n");
   return 1;
 }
 
